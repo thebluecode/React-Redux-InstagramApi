@@ -1,12 +1,10 @@
-.App {
-  
-}
-
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 85px;
   margin: 0 20px 0 20px;
 }
+
+.App-logo-size { width: 70px }
 
 .App-header {
   background-color: rgb(13, 53, 76);

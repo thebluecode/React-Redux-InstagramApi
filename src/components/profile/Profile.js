@@ -1,32 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-class Profile extends Component {
-    render() {
-        return (
-            <div className={'text-center'}>
-                <img src={this.props.user.profile_picture} alt={'profile logo'} className={'img-circle'} />
-                <br />
-                <br />
-                {
-                    this.props.position ?
-                    <Link
-                        to={'/details/'+ this.props.user.id + '/' + this.props.position.lat + '/' + this.props.position.lng } >
-                        @{this.props.user.username}
-                    </Link>
-                    :
-                    <a href={'https://www.instagram.com/' + this.props.user.username }>@{this.props.user.username}</a>
-                }
-                <br />
-                <p>{this.props.user.full_name}</p>
-            </div>
-        );
-    }
+const Profile = ({user, position}) => {
+
+    let linkToPosts = '';
+
+    if (position)
+    linkToPosts = '/details/'+ user.id + '/' + position.lat + '/' + position.lng;
+
+    return (
+        <div className={'text-center'}>
+            <img src={user.profile_picture} alt={'profile logo'} className={'img-circle'} />
+            <br />
+            <br />
+            
+            <a href={'https://www.instagram.com/' + user.username }>@{user.username}</a>
+            
+            <br />
+            
+            <p>{user.full_name}</p>
+                            
+            { position && <Link to={linkToPosts}>ver posts</Link> }
+        </div>
+    );
+    
 }
 
 Profile.propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    position: PropTypes.objec
 };
 
 export default Profile;

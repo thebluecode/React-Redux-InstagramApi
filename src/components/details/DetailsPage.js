@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import endpoints from '../../constants/InstagramApiEndpoints';
 import api from '../../api/InstagramApi';
@@ -19,8 +19,6 @@ class Details extends Component {
 
             let self = this;
 
-            console.log('ACCESS TOKEN', this.state.accessToken);
-
             axios.get(endpoints.getMediaUrl, {
                 params: {
                     lat: lat,
@@ -30,7 +28,7 @@ class Details extends Component {
             })
             .then(function (response) {
                 self.setState({
-                    medias: response.data.data.filter((media) => media.user.id == user_id)
+                    medias: response.data.data.filter((media) => media.user.id === user_id)
                 });
             });
         }
@@ -41,9 +39,9 @@ class Details extends Component {
         var displayMedia = function (media) {
             
             return (
-                <img src={media.images.standard_resolution.url} />
+                <img src={media.images.standard_resolution.url} alt="profile" />
             );
-        };
+        }; 
 
         return (
             <div>
