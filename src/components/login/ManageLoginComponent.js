@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Login from './LoginComponent';
@@ -31,9 +32,27 @@ class ManageLoginComponent extends Component {
         return token;
     }
 
+    requiresUserCurrentPositionSuccess(position){
+        let accessToken = this.state.login.accessToken;
+        this.props.actions.requiresUserCurrentPositionSuccess(position, accessToken);
+    }
+
+    requiresUserCurrentPositionError(error) {
+        console.log('Error trying to get user current position.', error);
+    }
+
+    requiresUserCurrentPosition() {
+        let self = this;
+        navigator.geolocation.getCurrentPosition(
+            (position) => { self.props.actions.requiresUserCurrentPositionSuccess(position, self.getAccessToken()) },
+            (error) => { self.requiresUserCurrentPositionError(error) }
+        );
+    }
+    
     checkIfClientIsAuthorized() {
-        if (!this.state.isAuthorized && hasAccessToken()) {
-            this.props.actions.setAccessToken(getAccessToken());
+        if (!this.props.isAuthorized && this.hasAccessToken()) {
+            this.props.actions.grantAccess(this.getAccessToken());
+            this.requiresUserCurrentPosition(this.getAccessToken());
         }
     }
 

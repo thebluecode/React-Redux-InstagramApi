@@ -1,8 +1,8 @@
-import react from 'react';
-import reactLogo from '../images/logos/react.svg';
-import reduxLogo from '../images/logos/redux.svg';
-import instaLogo from '../images/logos/instagram.svg';
-import './App.css';
+import React from 'react';
+import reactLogo from '../../images/logos/react.svg';
+import reduxLogo from '../../images/logos/redux.svg';
+import instaLogo from '../../images/logos/instagram.svg';
+import '../App.css';
 
 const Header = () => {
     return (

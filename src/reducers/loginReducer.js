@@ -4,11 +4,13 @@ import initialState from './initialState';
 export default function loginReducer(state = initialState.login, action) {
 
     switch (action.type) {
-        case types.SET_ACCESS_TOKEN:
-                return Object.assign({}, { accessToken: action.accessToken, isAuthorized: true })
-            break;
+        case types.LOGIN_SUCCEESS:
+            return Object.assign({}, state, { accessToken: action.accessToken, isAuthorized: true });
+
+        case types.LOAD_USER_DATA_SUCCESS:
+            return Object.assign({}, state, { loggedUser: action.user });
     
         default:
-            break;
+            return state;
     }
 }

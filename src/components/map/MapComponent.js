@@ -1,73 +1,51 @@
-import React, { Component } from "react"
+import React from "react"
 import PropTypes from 'prop-types';
-import { Map, InfoWindow , Marker, GoogleApiWrapper } from 'google-maps-react';
-import Profile from '../profile/Profile';
+import { Map, InfoWindow , Marker } from 'google-maps-react';
+import Profile from '../common/Profile';
 
 const style = {width: '100%', height: '100%', position: 'absolute'}
 
-export class InstaMap extends Component {
+const MapComponent = ({google, initialCenter, markers, onMarkerClick, activeMarker, showingInfoWindow, activeMarkerInfo, activeMarkerPosition}) => {
 
-    state = {
-        activeMarker: {},
-        showingInfoWindow: false,
-        user: {},
-        activeMarkerPosition: {}
-    }
+    return (
+        <div>
+            <Map
+                google={google}
+                style={style}
+                initialCenter={initialCenter}
+                className={'map'}
+                zoom={14}
+                clickableIcons={false} >
 
-    onMarkerClick = (props, marker, e) => {
-        
-        this.setState({
-            selectedPlace: props,
-            activeMarker: marker,
-            showingInfoWindow: true,
-            user: props.user,
-            activeMarkerPosition: props.position
-        });
-    }
+                { markers && 
+                    markers.map(marker => 
+                        <Marker
+                            key={marker.id}
+                            info={marker.info}
+                            position={marker.position}
+                            onClick={onMarkerClick} /> )}
 
-    render() {
-
-        var createMarker = function (marker) {
-            
-            return (
-
-                <Marker
-                    key={marker.id}
-                    user={marker.user}
-                    position={{ lat: marker.location.latitude, lng: marker.location.longitude }}
-                    onClick={this.onMarkerClick} />
-            );
-        };
-
-        return (
-            <div>
-                <Map
-                    google={this.props.google}
-                    style={style}
-                    initialCenter={this.props.position}
-                    className={'map'}
-                    zoom={14} >
-
-                    { this.props.markers.length > 0 ? this.props.markers.map(createMarker, this) : ''}
-
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}>
+                <InfoWindow
+                    marker={activeMarker}
+                    visible={showingInfoWindow} >
+                    
+                        <Profile info={activeMarkerInfo} position={{ lat: activeMarkerPosition.lat, lng: activeMarkerPosition.lng }} />
                         
-                            <Profile user={this.state.user} position={{ lat: this.state.activeMarkerPosition.lat, lng: this.state.activeMarkerPosition.lng }} />
-                            
-                    </InfoWindow>
-                </Map>
-            </div>
-        );
-    }
+                </InfoWindow>
+            </Map>
+        </div>
+    );
 }
 
-InstaMap.PropTypes = {
+MapComponent.PropTypes = {
     google: PropTypes.object.isRequired,
-    position: PropTypes.object.isRequired
+    initialCenter: PropTypes.object.isRequired,
+    markers: PropTypes.array,
+    onMarkerClick: PropTypes.func.isRequired,
+    activeMarker: PropTypes.object.isRequired,
+    showingInfoWindow: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    activeMarkerPosition: PropTypes.object.isRequired
 };
 
-export default GoogleApiWrapper({
-    apiKey: (' AIzaSyCuVCHgSnsnQyu4YLJAPr5H2LK50mhXBEc')
-})(InstaMap)
+export default MapComponent;
