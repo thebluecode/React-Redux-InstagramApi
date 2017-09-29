@@ -81,9 +81,3 @@ function mapDispatchToProps(dispatch) {
 export default GoogleApiWrapper({
     apiKey: ('AIzaSyCuVCHgSnsnQyu4YLJAPr5H2LK50mhXBEc')
 })(connect(mapStateToProps, mapDispatchToProps)(ManageMapComponent))
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ManageMapComponent);
-
-// export default GoogleApiWrapper({
-//     apiKey: ('AIzaSyCuVCHgSnsnQyu4YLJAPr5H2LK50mhXBEc')
-// })(ManageMapComponent)

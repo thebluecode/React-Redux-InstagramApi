@@ -11,5 +11,6 @@ export default {
         showingInfoWindow: false,
         activeMarkerInfo: {},
         activeMarkerPosition: {}
-    }
+    },
+    ajaxCall: { processing: false }
 };

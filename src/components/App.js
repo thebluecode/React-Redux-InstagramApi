@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 import Header from './common/Header';
+import ManageHomePage from './home/ManageHomePage';
+import ManageDetailsPage from './details/ManageDetailsPage';
+import test from './test';
 
 class App extends Component {
   render() {
@@ -8,15 +11,13 @@ class App extends Component {
       <div className="App container-fluid">
         <Header />
         <div className="row">
-          {this.props.children}
+            <Route exact path="/" component={ManageHomePage}/>
+            <Route path="/details/:user_id/:lat/:lng" component={ManageDetailsPage}/>
+            <Route path="/test" component={test}/>
         </div>
       </div>
     );
   }
 }
-
-App.propTypes = {
-  children: PropTypes.object.isRequired
-};
 
 export default App;

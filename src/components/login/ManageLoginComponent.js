@@ -51,6 +51,7 @@ class ManageLoginComponent extends Component {
     
     checkIfClientIsAuthorized() {
         if (!this.props.isAuthorized && this.hasAccessToken()) {
+            api.setAccessToken(this.getAccessToken());
             this.props.actions.grantAccess(this.getAccessToken());
             this.requiresUserCurrentPosition(this.getAccessToken());
         }

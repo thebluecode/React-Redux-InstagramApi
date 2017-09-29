@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
-const Profile = ({info, position}) => {
+const Profile = ({info}) => {
     return (
         <div className={'text-center'}>
             <img src={info.profile_picture} alt={'profile'} className={'img-circle'} />
@@ -15,17 +14,12 @@ const Profile = ({info, position}) => {
             <br />
             
             <p>{info.full_name}</p>
-
-            { position && <Link to={'/details/'+ info.id + '/' + position.lat + '/' + position.lng}>ver posts</Link> }
         </div>
     );
 }
 
 Profile.propTypes = {
-    info: PropTypes.object.isRequired,
-    position: PropTypes.object
+    info: PropTypes.object.isRequired
 };
 
 export default Profile;
-
-

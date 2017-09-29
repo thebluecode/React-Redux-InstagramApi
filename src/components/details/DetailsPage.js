@@ -1,58 +1,15 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import endpoints from '../../constants/InstagramApiEndpoints';
-import api from '../../api/InstagramApi';
-
-class Details extends Component {
-
-    state = {
-        accessToken: api.getAccessToken(),
-        medias: []
-    }
-
-    componentWillMount() {
-        var user_id = this.props.params.user_id;
-        var lat = this.props.params.lat;
-        var lng = this.props.params.lng;
-
-        if (user_id && lat && lng) {
-
-            let self = this;
-
-            axios.get(endpoints.getMediaUrl, {
-                params: {
-                    lat: lat,
-                    lng: lng,
-                    access_token: this.state.accessToken
-                }
-            })
-            .then(function (response) {
-                self.setState({
-                    medias: response.data.data.filter((media) => media.user.id === user_id)
-                });
-            });
-        }
-    }    
-
-    render() {
-
-        var displayMedia = function (media) {
-            
-            return (
-                <img src={media.images.standard_resolution.url} alt="profile" />
-            );
-        }; 
-
-        return (
-            <div>
-                { this.state.medias ? this.state.medias.map(displayMedia, this): ''}
-            </div>
-        );
-    }
-}
-
-Details.propTypes = {
-
+import React from 'react';
+import PropTypes from 'prop-types';
+const DetailsPage = ({medias}) => {
+    return (
+        <div>
+            {medias && medias.map(media => <img key={media.id} src={media.images.standard_resolution.url} alt={'media'} />) }
+        </div>
+    );
 };
 
-export default Details;
+DetailsPage.propTypes = {
+    medias: PropTypes.array
+};
+
+export default DetailsPage;

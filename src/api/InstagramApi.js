@@ -16,6 +16,14 @@ class InstagramApi {
     static redirectToAuthorizationPage(){
         window.location.href = this.getAuthorizationUrl(settings.getClientId(), settings.getRedirectUri());
     }
+
+    static setAccessToken(token) {
+        localStorage.setItem('access_token', token);
+    }
+
+    static getAccessToken() {
+        return localStorage.getItem('access_token');
+    }
 }
 
 export default InstagramApi;

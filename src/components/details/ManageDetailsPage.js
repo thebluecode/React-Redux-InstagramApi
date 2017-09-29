@@ -1,38 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import DetailsPage from './DetailsPage';
+import * as detailsActions from '../../actions/detailsActions';
+import api from '../../api/InstagramApi';
+import { filterMedias } from '../../selectors/selectors';
 
 class ManageDetailsPage extends Component {
-
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            medias: []
-        };
-    } 
     
     componentWillMount() {
-        //this.getMediasByPosition(this.props.params.lat, this.props.params.lng, this.props.params.user_id);
-    }    
-
-    getMediasByPosition(lat, lng, userId) {
-        var medias = this.props.medias.filter(media => 
-            media.location.latitude === lat &&
-            media.location.longitude === lng &&
-            media.user.id === userId
-        );
+        let lat = this.props.match.params.lat;
+        let lng = this.props.match.params.lng;
+        let accessToken = api.getAccessToken();
         
-        this.setState({ medias: medias });
+        this.props.actions.fetchMedias({ lat: lat, lng: lng, accessToken: accessToken });
     }
 
     render() {
         return (
-            <div>
-                {this.medias.map(media =>
-                    <img src={media.images.standard_resolution.url} alt={'media'} />
-                )}
-            </div>
+            <DetailsPage medias={this.props.medias} />
         );
     }
 }
@@ -42,10 +29,21 @@ ManageDetailsPage.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-    console.log(state.map);
+    let filter = {
+        userId: ownProps.match.params.user_id,
+        lat: ownProps.match.params.lat,
+        lng : ownProps.match.params.lng
+    };
+
     return {
-        medias: state.map.medias
+        medias: filterMedias(state.map.medias, filter)
     };
 }
 
-export default connect(mapStateToProps)(ManageDetailsPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(detailsActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageDetailsPage);
