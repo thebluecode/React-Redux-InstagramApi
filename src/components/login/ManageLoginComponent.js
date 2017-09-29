@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Login from './LoginComponent';
 import * as loginActions from '../../actions/loginActions';
 import api from '../../api/InstagramApi';
+import toastr from 'toastr';
 
 class ManageLoginComponent extends Component {
 
@@ -38,7 +39,7 @@ class ManageLoginComponent extends Component {
     }
 
     requiresUserCurrentPositionError(error) {
-        console.log('Error trying to get user current position.', error);
+        toastr.error('Error trying to get user current position.');
     }
 
     requiresUserCurrentPosition() {
@@ -50,7 +51,11 @@ class ManageLoginComponent extends Component {
     }
     
     checkIfClientIsAuthorized() {
-        if (!this.props.isAuthorized && this.hasAccessToken()) {
+        if (this.props.accessNotAllowd) {
+            toastr.error('Error trying to fetch data from Instagram API');
+        }
+        
+        if (!this.props.isAuthorized && this.hasAccessToken() && !this.props.accessNotAllowd) {
             api.setAccessToken(this.getAccessToken());
             this.props.actions.grantAccess(this.getAccessToken());
             this.requiresUserCurrentPosition(this.getAccessToken());
@@ -71,7 +76,8 @@ ManageLoginComponent.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        isAuthorized: state.login.isAuthorized
+        isAuthorized: state.login.isAuthorized,
+        accessNotAllowd: state.login.accessNotAllowd
     };
 }
 

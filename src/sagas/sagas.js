@@ -6,7 +6,7 @@ import * as types from '../actions/actionTypes';
 // Workers
 
 export function* fetchUserAsync(action) {
-    yield put({type: types.START_AJAX_CALL});
+    yield put({type: types.START_LOAD_USER_PROFILE_AJAX_CALL});
     try {
         // Get user data.
         const args = { params: { access_token: action.accessToken } };
@@ -16,12 +16,13 @@ export function* fetchUserAsync(action) {
 
     } catch (error) {
         console.log('Error trying to fetch user data.', error);
+        yield put({type: types.ERROR_LOAD_USER_PROFILE_AJAX_CALL});
     }
-    yield put({type: types.FINISH_AJAX_CALL});
+    yield put({type: types.FINISH_LOAD_USER_PROFILE_AJAX_CALL});
 }
 
 export function* fetchMediaAsync(action) {
-    yield put({type: types.START_AJAX_CALL});
+    yield put({type: types.START_LOAD_MEDIA_AJAX_CALL});
     try {
         // Get locations by position.
         const args = {
@@ -41,7 +42,7 @@ export function* fetchMediaAsync(action) {
     } catch (error) {
         console.log('Error trying to fetch medias data.', error);
     }
-    yield put({type: types.FINISH_AJAX_CALL});
+    yield put({type: types.FINISH_LOAD_MEDIA_AJAX_CALL});
 }
 
 // Watchers

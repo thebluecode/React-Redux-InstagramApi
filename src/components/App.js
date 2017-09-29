@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Header from './common/Header';
 import ManageHomePage from './home/ManageHomePage';
 import ManageDetailsPage from './details/ManageDetailsPage';
-import test from './test';
+import '../../node_modules/toastr/build/toastr.min.css';
 
 class App extends Component {
   render() {
@@ -13,7 +13,6 @@ class App extends Component {
         <div className="row">
             <Route exact path="/" component={ManageHomePage}/>
             <Route path="/details/:user_id/:lat/:lng" component={ManageDetailsPage}/>
-            <Route path="/test" component={test}/>
         </div>
       </div>
     );

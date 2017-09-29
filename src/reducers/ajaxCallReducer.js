@@ -4,11 +4,17 @@ import initialState from './initialState';
 export default function ajaxCallReducer(state = initialState.ajaxCall, action) {
 
     switch (action.type) {
-        case types.START_AJAX_CALL:
-            return Object.assign({}, state, { processing: true });
+        case types.START_LOAD_USER_PROFILE_AJAX_CALL:
+            return Object.assign({}, state, { loadingUserProfile: true });
 
-        case types.FINISH_AJAX_CALL:
-            return Object.assign({}, state, { processing: false });
+        case types.FINISH_LOAD_USER_PROFILE_AJAX_CALL:
+            return Object.assign({}, state, { loadingUserProfile: false });
+
+        case types.START_LOAD_MEDIA_AJAX_CALL:
+            return Object.assign({}, state, { loadingMap: true });
+
+        case types.FINISH_LOAD_MEDIA_AJAX_CALL:
+            return Object.assign({}, state, { loadingMap: false });
     
         default:
             return state;

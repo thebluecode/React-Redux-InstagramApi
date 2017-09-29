@@ -10,6 +10,9 @@ export default function loginReducer(state = initialState.login, action) {
         case types.LOAD_USER_DATA_SUCCESS:
             return Object.assign({}, state, { loggedUser: action.user });
     
+        case types.ERROR_LOAD_USER_PROFILE_AJAX_CALL:
+            return Object.assign({}, state, { accessToken: '', isAuthorized: false, loggedUser: {}, accessNotAllowd: true });
+    
         default:
             return state;
     }

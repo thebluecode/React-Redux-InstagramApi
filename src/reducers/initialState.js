@@ -2,7 +2,8 @@ export default {
     login: {
         accessToken: '',
         isAuthorized: false,
-        loggedUser: {}
+        loggedUser: {},
+        accessNotAllowd: false
      },
     map: {
         initialCenter: { lat: -3.7412924923836, lng: -38.472087683405 },
@@ -12,5 +13,8 @@ export default {
         activeMarkerInfo: {},
         activeMarkerPosition: {}
     },
-    ajaxCall: { processing: false }
+    ajaxCall: {
+        loadingUserProfile: false,
+        loadingMap: false
+    }
 };
