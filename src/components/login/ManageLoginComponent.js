@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Login from './LoginComponent';
 import * as loginActions from '../../actions/loginActions';
-import api from '../../api/InstagramApi';
+import * as api from '../../api/InstagramApi';
 import toastr from 'toastr';
 
 class ManageLoginComponent extends Component {

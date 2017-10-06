@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import DetailsPage from './DetailsPage';
 import * as detailsActions from '../../actions/detailsActions';
-import api from '../../api/InstagramApi';
+import * as api from '../../api/InstagramApi';
 import { filterMedias } from '../../selectors/selectors';
 
-class ManageDetailsPage extends Component {
+export class ManageDetailsPage extends Component {
     
     componentWillMount() {
         let lat = this.props.match.params.lat;
@@ -25,7 +25,7 @@ class ManageDetailsPage extends Component {
 }
 
 ManageDetailsPage.propTypes = {
-    medias: PropTypes.array.isRequired
+    medias: PropTypes.array
 };
 
 function mapStateToProps(state, ownProps) {

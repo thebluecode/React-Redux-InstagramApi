@@ -1,36 +1,23 @@
-// import axios from 'axios';
 import * as settings from './InstagramApiSettings';
 
-class InstagramApi {  
-
-    static getAuthorizationUrlTemplate() {
-        return 'https://api.instagram.com/oauth/authorize/?client_id={0}&redirect_uri={1}&response_type=token&scope=basic+public_content+follower_list+comments+relationships+likes';
-    }
-
-    static getAuthorizationUrl(clientId, redirectUri) {
-        return this.getAuthorizationUrlTemplate()
-                .replace('{0}', clientId)
-                .replace('{1}', redirectUri);
-    }
-
-    static redirectToAuthorizationPage(){
-        window.location.href = this.getAuthorizationUrl(settings.getClientId(), settings.getRedirectUri());
-    }
-
-    static setAccessToken(token) {
-        localStorage.setItem('access_token', token);
-    }
-
-    static getAccessToken() {
-        return localStorage.getItem('access_token');
-    }
+export function getAuthorizationUrlTemplate() {
+    return 'https://api.instagram.com/oauth/authorize/?client_id={0}&redirect_uri={1}&response_type=token&scope=basic+public_content+follower_list+comments+relationships+likes';
 }
 
-export default InstagramApi;
+export function getAuthorizationUrl(clientId, redirectUri) {
+    return getAuthorizationUrlTemplate()
+            .replace('{0}', clientId)
+            .replace('{1}', redirectUri);
+}
 
-// export default {
-//     loggedUserUrl: 'https://api.instagram.com/v1/users/self/',
-//     locationsUrl: 'https://api.instagram.com/v1/locations/search',
-//     recentMediaUrl: 'https://api.instagram.com/v1/locations/{location_id}/media/recent',
-//     mediaUrl: 'https://api.instagram.com/v1/media/search'
-// };
+export function redirectToAuthorizationPage(){
+    window.location.href = getAuthorizationUrl(settings.getClientId(), settings.getRedirectUri());
+}
+
+export function setAccessToken(token) {
+    localStorage.setItem('access_token', token);
+}
+
+export function getAccessToken() {
+    return localStorage.getItem('access_token');
+}

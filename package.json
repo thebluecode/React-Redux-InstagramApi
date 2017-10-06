@@ -8,14 +8,12 @@
     "google-maps-react": "^1.1.0",
     "jquery": "^3.2.1",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "react-loading": "^0.1.4",
     "react-redux": "^5.0.6",
     "react-router": "^3.0.5",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.11",
     "redux": "^3.7.2",
-    "redux-immutable-state-invariant": "^2.0.0",
     "redux-saga": "^0.15.6",
     "toastr": "^2.1.2"
   },
@@ -24,5 +22,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
+    "expect": "^21.2.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-test-renderer": "^16.0.0",
+    "redux-immutable-state-invariant": "^2.1.0"
   }
 }
