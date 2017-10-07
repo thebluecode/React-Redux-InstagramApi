@@ -1,13 +1,10 @@
 import expect from 'expect';
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import { mount } from 'enzyme';
 import DetailsPage from './DetailsPage';
 
-Enzyme.configure({ adapter: new Adapter() });
-
 describe('Details Page', () => {
-    it('Should display medias passed.', () => {
+    it('Should render medias passed.', () => {
         const props = {
             medias: [
                 { "id": "1605493590251016439_5880799840", "images": { "standard_resolution": { "url": "https://scontent.cdninstagram.com/t51.2885-15/e35/21827020_1821937284728249_8292599855843377152_n.jpg" } } },
@@ -22,7 +19,7 @@ describe('Details Page', () => {
         expect(images.length).toBe(4);
     });
 
-    it('Should display nothing if empty media array is passed.', () => {
+    it('Should render nothing if empty media array is passed.', () => {
         const props = {
             medias: []
         };
@@ -32,7 +29,7 @@ describe('Details Page', () => {
         expect(images.length).toBe(0);
     });
 
-    it('Should display nothing if undefined medias is passed.', () => {
+    it('Should render nothing if undefined medias is passed.', () => {
         const props = { medias: undefined };
 
         const wrapper = mount(<DetailsPage {...props} />);

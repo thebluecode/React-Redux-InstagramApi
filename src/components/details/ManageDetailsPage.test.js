@@ -1,12 +1,10 @@
 import expect from 'expect';
 import React from 'react';
-import Enzyme, { mount, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import { mount, shallow } from 'enzyme';
 import { ManageDetailsPage } from './ManageDetailsPage';
 import * as api from '../../api/InstagramApi';
 import * as detailsActions from '../../actions/detailsActions';
-
-Enzyme.configure({ adapter: new Adapter() });
+import DetailsPage from './DetailsPage';
 
 describe('Manage Details Page', () => {
     beforeEach(() => {
@@ -22,5 +20,16 @@ describe('Manage Details Page', () => {
 
         const wrapper = mount(<ManageDetailsPage {...props} />);
         expect(props.actions.fetchMedias).toHaveBeenCalledTimes(1);
+    });
+
+    it('Should render DetailsPage component.', () => {
+        const props = {
+            medias: undefined,
+            actions: { fetchMedias: jest.fn() },
+            match: { params: { lat: '', lng: '' } }
+        };
+
+        const wrapper = shallow(<ManageDetailsPage {...props} />);
+        expect(wrapper.contains(<DetailsPage />)).toBe(true);
     });
 });

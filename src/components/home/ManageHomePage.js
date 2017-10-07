@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import HomePage from './HomePage';
+import LeftPanel from './LeftPanel';
+import RightPanel from './RightPanel';
 
-class ManageHomePage extends Component {
+export class ManageHomePage extends Component {
     render() {
         return (
-            <div>
-                <HomePage
+            <div className="row">
+                <LeftPanel
                     userIsAuthorized={this.props.isAuthorized}
                     userInfo={this.props.user}
-                    loadingUserProfile={this.props.loadingUserProfile}
-                    loadingMap={this.props.loadingMap} />
+                    loadingUserProfile={this.props.loadingUserProfile} />
+                
+                <RightPanel loadingMap={this.props.loadingMap} />
             </div>
         );
     }
