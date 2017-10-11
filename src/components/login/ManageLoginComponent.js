@@ -7,7 +7,7 @@ import * as loginActions from '../../actions/loginActions';
 import * as api from '../../api/InstagramApi';
 import toastr from 'toastr';
 
-class ManageLoginComponent extends Component {
+export class ManageLoginComponent extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -23,16 +23,6 @@ class ManageLoginComponent extends Component {
         api.redirectToAuthorizationPage();
     }
 
-    hasAccessToken() {
-        return window.location.href.indexOf('#access_token=') !== -1;
-    }
-
-    getAccessToken() {
-        var arr = window.location.href.split('#')
-        var token = arr[arr.length - 1].split('=')[1];
-        return token;
-    }
-
     requiresUserCurrentPositionSuccess(position){
         let accessToken = this.state.login.accessToken;
         this.props.actions.requiresUserCurrentPositionSuccess(position, accessToken);
@@ -42,23 +32,23 @@ class ManageLoginComponent extends Component {
         toastr.error('Error trying to get user current position.');
     }
 
-    requiresUserCurrentPosition() {
+    requiresUserCurrentPosition(accessToken) {
         let self = this;
         navigator.geolocation.getCurrentPosition(
-            (position) => { self.props.actions.requiresUserCurrentPositionSuccess(position, self.getAccessToken()) },
+            (position) => { self.props.actions.requiresUserCurrentPositionSuccess(position, accessToken) },
             (error) => { self.requiresUserCurrentPositionError(error) }
         );
     }
     
     checkIfClientIsAuthorized() {
-        if (this.props.accessNotAllowd) {
+        if (this.props.isAuthorized && this.props.accessNotAllowd) {
             toastr.error('Error trying to fetch data from Instagram API');
         }
         
-        if (!this.props.isAuthorized && this.hasAccessToken() && !this.props.accessNotAllowd) {
-            api.setAccessToken(this.getAccessToken());
-            this.props.actions.grantAccess(this.getAccessToken());
-            this.requiresUserCurrentPosition(this.getAccessToken());
+        if (!this.props.isAuthorized && api.urlHasAccessToken() && !this.props.accessNotAllowd) {
+            api.setAccessToken(api.getAccessTokenFromUrl());
+            this.props.actions.grantAccess(api.getAccessTokenFromUrl());
+            this.requiresUserCurrentPosition(api.getAccessTokenFromUrl());
         }
     }
 

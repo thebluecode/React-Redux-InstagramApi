@@ -21,3 +21,13 @@ export function setAccessToken(token) {
 export function getAccessToken() {
     return localStorage.getItem('access_token');
 }
+
+export function urlHasAccessToken() {
+    return window.location.href.indexOf('#access_token=') !== -1;
+}
+
+export function getAccessTokenFromUrl() {
+    var arr = window.location.href.split('#')
+    var token = arr[arr.length - 1].split('=')[1];
+    return token;
+}

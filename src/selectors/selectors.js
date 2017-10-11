@@ -1,3 +1,5 @@
+import lodash from 'lodash';
+
 export function mediasFormatedForMapMarkers(medias) {
     return medias.map(media => {
         return {
@@ -19,4 +21,27 @@ export function filterMedias(medias, filter) {
     }
 
     return filteredMedias;
+}
+
+export function filterMarkersByPosition(markers, position) {
+    return markers.filter(marker => marker.position.lat === position.lat &&
+                                    marker.position.lng === position.lng);
+}
+
+export function groupMarkersByUser(markers) {
+    return lodash.chain(markers)
+                 .groupBy(marker => marker.info.id)
+                 .map(function(val, key) {
+                     return {
+                         id: key,
+                         info: val[0].info
+                     };
+                 }).value();
+}
+
+export function formatMediasToGroupedProfilesByActivePosition(medias, position) {
+    let markers = mediasFormatedForMapMarkers(medias);
+    let filtered = filterMarkersByPosition(markers, position);
+    let profiles = groupMarkersByUser(filtered);
+    return profiles;
 }

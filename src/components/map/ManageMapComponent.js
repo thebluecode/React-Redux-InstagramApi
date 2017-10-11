@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { GoogleApiWrapper } from 'google-maps-react';
 import MapComponent from './MapComponent';
 import * as mapActions from '../../actions/mapActions';
-import { mediasFormatedForMapMarkers } from '../../selectors/selectors';
+import * as selectors from '../../selectors/selectors';
 
 class ManageMapComponent extends Component {
 
@@ -43,7 +43,8 @@ class ManageMapComponent extends Component {
                 activeMarker={this.props.activeMarker}
                 showingInfoWindow={this.props.showingInfoWindow}
                 activeMarkerInfo={this.props.activeMarkerInfo}
-                activeMarkerPosition={this.props.activeMarkerPosition} />
+                activeMarkerPosition={this.props.activeMarkerPosition}
+                activeProfiles={this.props.activeProfiles} />
         );
     }
 }
@@ -63,11 +64,12 @@ ManageMapComponent.propTypes = {
 function mapStateToProps(state, ownProps) {
     return {
         initialCenter: state.map.initialCenter,
-        markers: mediasFormatedForMapMarkers(state.map.medias),
+        markers: selectors.mediasFormatedForMapMarkers(state.map.medias),        
         activeMarker: state.map.activeMarker,
         showingInfoWindow: state.map.showingInfoWindow,
         activeMarkerInfo: state.map.activeMarkerInfo,
-        activeMarkerPosition: state.map.activeMarkerPosition
+        activeMarkerPosition: state.map.activeMarkerPosition,
+        activeProfiles: selectors.formatMediasToGroupedProfilesByActivePosition(state.map.medias, { lat: state.map.activeMarkerPosition.lat, lng: state.map.activeMarkerPosition.lng }),
     };
 }
 
