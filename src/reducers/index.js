@@ -3,10 +3,10 @@ import login from './loginReducer';
 import map from './mapReducer';
 import ajaxCall from './ajaxCallReducer';
 
-const rootReducers = combineReducers({
+const rootReducer = combineReducers({
     login,
     map,
     ajaxCall
 });
 
-export default rootReducers;
+export default rootReducer;
