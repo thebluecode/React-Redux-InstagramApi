@@ -33,7 +33,7 @@ export function groupMarkersByUser(markers) {
                  .groupBy(marker => marker.info.id)
                  .map(function(val, key) {
                      return {
-                         id: key,
+                         id: parseInt(key),
                          info: val[0].info
                      };
                  }).value();

@@ -7,7 +7,7 @@ import MapComponent from './MapComponent';
 import * as mapActions from '../../actions/mapActions';
 import * as selectors from '../../selectors/selectors';
 
-class ManageMapComponent extends Component {
+export class ManageMapComponent extends Component {
 
     constructor(props, context) {
         super(props, context);
@@ -57,8 +57,8 @@ ManageMapComponent.propTypes = {
     activeMarker: PropTypes.object,
     showingInfoWindow: PropTypes.bool.isRequired,
     activeMarkerInfo: PropTypes.object,
-    activeMarkerPosition: PropTypes.object
-
+    activeMarkerPosition: PropTypes.object,
+    activeProfiles: PropTypes.array
 };
 
 function mapStateToProps(state, ownProps) {
